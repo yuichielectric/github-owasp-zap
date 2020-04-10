@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# on:
+#   schedule:
+#     # Runs every day At 01:00.
+#     - cron:  '0 1 * * *'
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan GitHub
+    steps:
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: 'https://github.com/'
